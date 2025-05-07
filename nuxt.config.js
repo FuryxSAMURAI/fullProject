@@ -64,6 +64,7 @@ export default {
       fallbackLocale: "en",
     },
   },
+  target: 'static',
   /*
    ** Build configuration
    */

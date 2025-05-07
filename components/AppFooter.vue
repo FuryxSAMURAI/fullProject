@@ -5,9 +5,9 @@
         <nuxt-link to="/">STORE</nuxt-link>
       </div>
       <div class="footer__links">
-        <nuxt-link to="/about">{{$t("about")}}</nuxt-link>
-        <nuxt-link to="/delivery">{{$t("delivery")}}</nuxt-link>
-        <nuxt-link to="/contacts">{{$t("contacts")}}</nuxt-link>
+        <nuxt-link to="/">{{$t("about")}}</nuxt-link>
+        <nuxt-link to="/">{{$t("delivery")}}</nuxt-link>
+        <nuxt-link to="/">{{$t("contacts")}}</nuxt-link>
       </div>
       <div class="footer__social">
         <a href="https://instagram.com" target="_blank"

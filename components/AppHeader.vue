@@ -6,13 +6,13 @@
     <nav class="container__header-nav">
       <ul class="container__header-nav-container-links">
         <li>
-          <nuxt-link to="/about">{{ $t("about") }}</nuxt-link>
+          <nuxt-link to="/">{{ $t("about") }}</nuxt-link>
         </li>
         <li>
-          <nuxt-link to="/delivery">{{ $t("delivery") }}</nuxt-link>
+          <nuxt-link to="/">{{ $t("delivery") }}</nuxt-link>
         </li>
         <li>
-          <nuxt-link to="/contacts">{{ $t("contacts") }}</nuxt-link>
+          <nuxt-link to="/">{{ $t("contacts") }}</nuxt-link>
         </li>
         <li>
           <nuxt-link to="admin">ADMIN</nuxt-link>
