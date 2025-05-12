@@ -31,5 +31,6 @@
     "total":"Total",
     "pay":"Pay",
     "noProducts":"Oops! No products found",
-    "tipForProduct":"Try adjusting your filters or come back a bit later"
+    "tipForProduct":"Try adjusting your filters or come back a bit later",
+    "reviewedProducts":"Reviewed products"
 }

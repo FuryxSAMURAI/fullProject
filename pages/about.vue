@@ -4,35 +4,31 @@
       <i class="fa-solid fa-arrow-left fa-sm" style="color: #000000"></i>
       <app-history></app-history>
     </div>
-    <div
-      v-for="(product, index) in products"
-      :key="index"
-      class="container__main-about-block"
-    >
+    <div class="container__main-about-block">
       <div class="container__main-about-block-img">
-        <img :src="product.image" :alt="product.title" />
+        <img :src="aboutProduct.image" :alt="aboutProduct.title" />
       </div>
       <div class="container__main-about-block-desc">
         <div class="container__main-about-block-desc-title">
-          {{ product.title }}
+          {{ aboutProduct.title }}
         </div>
         <div class="container__main-about-block-desc-description">
-          {{ $t("description") }}: {{ product.description }}
+          {{ $t("description") }}: {{ aboutProduct.description }}
         </div>
         <div class="container__main-about-block-desc-category">
-          {{ $t("category") }}: {{ product.category }}
+          {{ $t("category") }}: {{ aboutProduct.category }}
         </div>
         <div class="container__main-about-block-desc-rating">
           <div class="container__main-about-block-desc-rating-rate">
-            {{ $t("rate") }}: {{ product.rating.rate }}
+            {{ $t("rate") }}: {{ aboutProduct.rating }}
           </div>
           <div class="container__main-about-block-desc-rating-count">
-            {{ $t("count") }}: {{ product.rating.count }}
+            {{ $t("count") }}: {{ aboutProduct.rating }}
           </div>
         </div>
         <div class="container__main-about-block-desc-price">
           <div class="container__main-about-block-desc-price-block">
-            {{ product.price }}$
+            {{ aboutProduct.price }}$
           </div>
           <div class="container__main-product-block-desc-price-footer">
             <button
@@ -61,20 +57,32 @@
         </div>
       </div>
     </div>
+    <app-reviewed></app-reviewed>
   </div>
 </template>
 
 <script>
 import AppHistory from "../components/AppHistory.vue";
+import AppReviewed from "../components/AppReviewed.vue";
 export default {
   components: {
     AppHistory,
+    AppReviewed,
   },
-  computed: {
-    products() {
-      return this.$store.getters.getAboutProduct;
-    },
+  data() {
+    return {
+      aboutProduct: [],
+    };
   },
+  mounted() {
+    console.log("mounted запущено");
+    const about = this.$localStorage.get("setAboutProduct");
+    console.log("отримано з localStorage:", about);
+    if (about) {
+      this.aboutProduct = about;
+    }
+  },
+
   methods: {
     addToCart(product) {
       this.$store.commit("addToCart", product);

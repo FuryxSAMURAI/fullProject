@@ -15,7 +15,8 @@
     "@nuxtjs/i18n": "^7.3.1",
     "cookie-universal-nuxt": "^2.2.2",
     "estree-walker": "2.0.2",
-    "nuxt": "^2.0.0"
+    "nuxt": "^2.0.0",
+    "nuxt-storage": "^1.2.2"
   },
   "devDependencies": {
     "sass": "^1.87.0",

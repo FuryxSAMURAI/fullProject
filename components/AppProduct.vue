@@ -10,8 +10,9 @@
         class="container__main-product-block"
         v-for="(product, index) in paginatedProducts"
         :key="index"
+        @click="showAboutProduct(product), setToReviewed(product)"
       >
-        <div @click="showAboutProduct(product)">
+        <div>
           <img
             class="container__main-product-block-image"
             v-if="product.image"
@@ -37,15 +38,20 @@
               class="container__main-product-block-price-footer-addToCart"
               @click="addToCart(product)"
             >
-             {{ $t("addToCart") }} <i class="fa-solid fa-cart-shopping"></i>
+              {{ $t("addToCart") }} <i class="fa-solid fa-cart-shopping"></i>
             </button>
           </div>
         </div>
       </div>
     </div>
     <div class="pagination">
-      <button @click="prevPage" :disabled="currentPage === 1">« {{ $t("prev") }}</button>
-      <span>{{ $t("pages") }} {{ currentPage }} {{ $t("of") }} {{ totalPages }}</span>
+      <button @click="prevPage" :disabled="currentPage === 1">
+        « {{ $t("prev") }}
+      </button>
+      <span
+        >{{ $t("pages") }} {{ currentPage }} {{ $t("of") }}
+        {{ totalPages }}</span
+      >
       <button @click="nextPage" :disabled="currentPage === totalPages">
         {{ $t("next") }} »
       </button>
@@ -66,6 +72,7 @@ export default {
       currentPage: 1,
       perPage: 8,
       countCart: 0,
+      reviewedProducts: [],
     };
   },
   computed: {
@@ -93,10 +100,23 @@ export default {
       return this.$store.state.addLike;
     },
   },
+  mounted() {
+    const saved = this.$localStorage.get("reviewedProducts");
+    if (saved) {
+      this.reviewedProducts = saved;
+    }
+  },
   methods: {
+    setToReviewed(product) {
+      this.reviewedProducts = this.reviewedProducts.filter(
+        (p) => p.id !== product.id
+      );
+      this.reviewedProducts = [product, ...this.reviewedProducts];
+      this.$localStorage.set("reviewedProducts", this.reviewedProducts);
+    },
     showAboutProduct(product) {
       this.$router.push("/about");
-      this.$store.commit("setAboutProduct", product);
+      this.$localStorage.set("setAboutProduct", product);
     },
     nextPage() {
       if (this.currentPage < this.totalPages) this.currentPage++;
