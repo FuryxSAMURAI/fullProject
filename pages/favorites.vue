@@ -69,11 +69,11 @@ export default {
             {{ product.price }} $
           </div>
           <div class="container__main-favorites-container-else-block-remove">
-            <button @click="addToCart(product)" style="margin-right: 20px">
-              <i class="fa-solid fa-cart-shopping fa-xl"></i>
+            <button @click="addToCart(product)" style="margin-right: 20px; background-color: transparent;border: none;">
+              <i class="fa-solid fa-cart-shopping fa-2xl"></i>
             </button>
-            <button @click="removeItem(product.id)">
-              <i class="fa-solid fa-trash fa-xl"></i>
+            <button @click="removeItem(product.id)" style="background-color: transparent;border: none;">
+              <i class="fa-solid fa-trash fa-2xl"></i>
             </button>
           </div>
         </div>

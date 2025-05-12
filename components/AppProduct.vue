@@ -9,7 +9,7 @@
   }
   &-product-block {
     margin: 0 0 40px 0;
-    width: 300px;
+    width: 350px;
     &-image {
       margin: 0 auto;
       object-fit: contain;
@@ -70,9 +70,8 @@
         class="container__main-product-block"
         v-for="(product, index) in paginatedProducts"
         :key="index"
-        @click="handleProductClick(product)"
       >
-        <div>
+        <div @click="handleProductClick(product)">
           <div class="container__main-product-block-image">
             <img
               v-if="product.image"

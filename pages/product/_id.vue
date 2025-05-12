@@ -6,7 +6,8 @@
     gap: 40px;
     margin: 40px auto;
     &-img {
-      margin: 0 40px;
+      height: 500px;
+      margin: 0 60px;
       display: flex;
       justify-content: center;
       img {
@@ -102,13 +103,25 @@
           <div class="container__main-product-block-desc-price-footer">
             <button
               class="container__main-product-block-desc-price-footer-addToFav"
-              @click="addFavorite(product)"
+              @click="addFavorite(aboutProduct)"
+              style="
+                border: none;
+                background-color: transparent;
+                margin-right: 20px;
+              "
             >
               <i class="fa-solid fa-heart fa-2xl" style="color: #000"></i>
             </button>
             <button
               class="container__main-product-block-desc-price-footer-addToCart"
-              @click="addToCart(product)"
+              @click="addToCart(aboutProduct)"
+              style="
+                border: 1px solid #000;
+                background-color: transparent;
+                border-radius: 5px;
+                padding: 10px;
+                cursor: pointer;
+              "
             >
               {{ $t("addToCart") }}
               <i class="fa-solid fa-cart-shopping" style="color: #000"></i>

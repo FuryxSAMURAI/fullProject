@@ -19,16 +19,17 @@
       </div>
       <div class="container__main-reviewed-wrapper-blocks">
         <div
-          @click="handleProductClick(product)"
           class="container__main-reviewed-wrapper-block"
           v-for="product in visibleItems"
           :key="product.id"
         >
-          <div class="container__main-reviewed-wrapper-block-img">
-            <img :src="product.image" :alt="product.title" />
-          </div>
-          <div class="container__main-reviewed-wrapper-block-title">
-            {{ product.title }}
+          <div @click="handleProductClick(product)">
+            <div class="container__main-reviewed-wrapper-block-img">
+              <img :src="product.image" :alt="product.title" />
+            </div>
+            <div class="container__main-reviewed-wrapper-block-title">
+              {{ product.title }}
+            </div>
           </div>
           <div class="container__main-reviewed-wrapper-block-price">
             <div class="container__main-reviewed-wrapper-block-price-cost">
@@ -38,14 +39,16 @@
               <button
                 class="container__main-reviewed-wrapper-block-price-footer-addToFav"
                 @click="addFavorite(product)"
+                style="border: none; background-color: transparent;margin-right: 10px;"
               >
-                <i class="fa-solid fa-heart" style="color: #000"></i>
+                <i class="fa-solid fa-heart fa-xl" style="color: #000"></i>
               </button>
               <button
                 class="container__main-reviewed-wrapper-block-price-footer-addToCart"
                 @click="addToCart(product)"
+                style="border: none; background-color: transparent"
               >
-                <i class="fa-solid fa-cart-shopping"></i>
+                <i class="fa-solid fa-cart-shopping fa-xl"></i>
               </button>
             </div>
           </div>
@@ -136,11 +139,6 @@ export default {
   beforeDestroy() {
     window.removeEventListener("resize", this.updateItemsPerPage);
   },
-    // watch: {
-    //   "$route.params.id"() {
-    //     this.loadProductFromStorage();
-    //   },
-    // },
   methods: {
     setToReviewed(product) {
       this.reviewedProducts = this.reviewedProducts.filter(
@@ -151,7 +149,7 @@ export default {
     },
     showAboutProduct(product) {
       this.$localStorage.set("setAboutProduct", product);
-      this.$router.push(`/product/${product.id}`)
+      this.$router.push(`/product/${product.id}`);
     },
     loadProductFromStorage() {
       const saved = this.$localStorage.get("reviewedProducts");
@@ -193,6 +191,12 @@ export default {
     handleProductClick(product) {
       this.setToReviewed(product);
       this.showAboutProduct(product);
+    },
+    addToCart(product) {
+      this.$store.commit("addToCart", product);
+    },
+    addFavorite(product) {
+      this.$store.commit("addToFav", product);
     },
   },
   computed: {
