@@ -1,3 +1,72 @@
+<style lang="scss" scoped>
+.container__main {
+  &-about-block {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 40px;
+    margin: 40px auto;
+    &-img {
+      margin: 0 40px;
+      display: flex;
+      justify-content: center;
+      img {
+        object-fit: contain;
+        height: 100%;
+        width: 100%;
+      }
+    }
+    &-desc {
+      margin: 0 40px;
+      &-title {
+        margin-top: 40px;
+        font-size: 36px;
+        font-weight: bold;
+      }
+      &-description {
+        margin-top: 40px;
+        font-size: 18px;
+      }
+      &-category {
+        font-size: 18px;
+        margin-top: 10px;
+      }
+      &-price {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 40px;
+        &-block {
+          font-size: 28px;
+          font-weight: bold;
+        }
+        &-footer {
+          display: flex;
+          &-addToFav {
+            border: none;
+            background-color: transparent;
+            margin-right: 20px;
+          }
+          &-addToCart {
+            border: 1px solid #000;
+            background-color: transparent;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+          }
+        }
+      }
+      &-rating {
+        margin-top: 10px;
+        display: flex;
+        font-size: 18px;
+        &-count {
+          margin-left: 40px;
+        }
+      }
+    }
+  }
+}
+</style>
+
 <template>
   <div>
     <div class="container__main-history">
@@ -34,21 +103,12 @@
             <button
               class="container__main-product-block-desc-price-footer-addToFav"
               @click="addFavorite(product)"
-              style="margin-right: 20px"
             >
               <i class="fa-solid fa-heart fa-2xl" style="color: #000"></i>
             </button>
             <button
               class="container__main-product-block-desc-price-footer-addToCart"
               @click="addToCart(product)"
-              style="
-                background-color: transparent;
-                border: 1px solid #000;
-                border-radius: 5px;
-                width: 10vw;
-                padding: 10px 0;
-                cursor: pointer;
-              "
             >
               {{ $t("addToCart") }}
               <i class="fa-solid fa-cart-shopping" style="color: #000"></i>
@@ -62,8 +122,8 @@
 </template>
 
 <script>
-import AppHistory from "../components/AppHistory.vue";
-import AppReviewed from "../components/AppReviewed.vue";
+import AppHistory from "~/components/AppHistory.vue";
+import AppReviewed from "~/components/AppReviewed.vue";
 export default {
   components: {
     AppHistory,
@@ -82,7 +142,14 @@ export default {
       this.aboutProduct = about;
     }
   },
-
+  watch: {
+    "$route.params.id"() {
+      const product = this.$localStorage.get("setAboutProduct");
+      if (product) {
+        this.aboutProduct = product;
+      }
+    },
+  },
   methods: {
     addToCart(product) {
       this.$store.commit("addToCart", product);

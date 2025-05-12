@@ -19,7 +19,7 @@
       </div>
       <div class="container__main-reviewed-wrapper-blocks">
         <div
-          @click="showAboutProduct(product), setToReviewed(product)"
+          @click="handleProductClick(product)"
           class="container__main-reviewed-wrapper-block"
           v-for="product in visibleItems"
           :key="product.id"
@@ -129,16 +129,18 @@ export default {
     };
   },
   mounted() {
-    const saved = this.$localStorage.get("reviewedProducts");
-    if (saved) {
-      this.reviewedProducts = saved;
-    }
+    this.loadProductFromStorage();
     this.updateItemsPerPage();
     window.addEventListener("resize", this.updateItemsPerPage);
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.updateItemsPerPage);
   },
+    // watch: {
+    //   "$route.params.id"() {
+    //     this.loadProductFromStorage();
+    //   },
+    // },
   methods: {
     setToReviewed(product) {
       this.reviewedProducts = this.reviewedProducts.filter(
@@ -148,8 +150,15 @@ export default {
       this.$localStorage.set("reviewedProducts", this.reviewedProducts);
     },
     showAboutProduct(product) {
-      this.$router.push("/about");
-      this.$store.commit("setAboutProduct", product);
+      this.$localStorage.set("setAboutProduct", product);
+      this.$router.push(`/product/${product.id}`)
+    },
+    loadProductFromStorage() {
+      const saved = this.$localStorage.get("reviewedProducts");
+      if (saved) {
+        this.reviewedProducts = saved;
+        console.log("оновлено товар:", this.aboutProduct);
+      }
     },
     updateItemsPerPage() {
       const width = window.innerWidth;
@@ -180,6 +189,10 @@ export default {
         this.currentPage--;
         this.currentIndex -= this.itemsPerPage;
       }
+    },
+    handleProductClick(product) {
+      this.setToReviewed(product);
+      this.showAboutProduct(product);
     },
   },
   computed: {

@@ -1,3 +1,63 @@
+<style lang="scss" scoped>
+.container__main {
+  &-product-blocks {
+    margin: 0 auto;
+    width: 80vw;
+    display: grid;
+    justify-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  }
+  &-product-block {
+    margin: 0 0 40px 0;
+    width: 300px;
+    &-image {
+      margin: 0 auto;
+      object-fit: contain;
+      height: 350px;
+      width: 260px;
+      img{
+        height: 100%;
+        width: 100%;
+      }
+    }
+    &-title {
+      margin: 20px 0;
+      font-size: 22px;
+      height: 140px;
+    }
+    &-price {
+      margin: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      &-cost {
+        font-size: 24px;
+        font-weight: 600;
+      }
+      &-footer {
+        display: flex;
+        align-items: center;
+        &-addToFav {
+          margin-right: 20px;
+          display: flex;
+          justify-content: right;
+          border: none;
+          background-color: transparent;
+        }
+        &-addToCart {
+          cursor: pointer;
+          font-size: 14px;
+          border: 1px solid #000;
+          padding: 10px;
+          border-radius: 5px;
+          background-color: transparent;
+        }
+      }
+    }
+  }
+}
+</style>
+
 <template>
   <div>
     <div class="container__main-product-blocks">
@@ -10,15 +70,16 @@
         class="container__main-product-block"
         v-for="(product, index) in paginatedProducts"
         :key="index"
-        @click="showAboutProduct(product), setToReviewed(product)"
+        @click="handleProductClick(product)"
       >
         <div>
-          <img
-            class="container__main-product-block-image"
-            v-if="product.image"
-            :src="product.image"
-            alt="product.title"
-          />
+          <div class="container__main-product-block-image">
+            <img
+              v-if="product.image"
+              :src="product.image"
+              alt="product.title"
+            />
+          </div>
           <div class="container__main-product-block-title">
             {{ product.title }}
           </div>
@@ -70,7 +131,7 @@ export default {
   data() {
     return {
       currentPage: 1,
-      perPage: 8,
+      perPage: 9,
       countCart: 0,
       reviewedProducts: [],
     };
@@ -115,7 +176,7 @@ export default {
       this.$localStorage.set("reviewedProducts", this.reviewedProducts);
     },
     showAboutProduct(product) {
-      this.$router.push("/about");
+      this.$router.push(`/product/${product.id}`);
       this.$localStorage.set("setAboutProduct", product);
     },
     nextPage() {
@@ -129,6 +190,10 @@ export default {
     },
     addFavorite(product) {
       this.$store.commit("addToFav", product);
+    },
+    handleProductClick(product) {
+      this.setToReviewed(product);
+      this.showAboutProduct(product);
     },
   },
 };

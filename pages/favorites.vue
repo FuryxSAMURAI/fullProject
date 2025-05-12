@@ -1,5 +1,9 @@
 <script>
+import AppReviewed from "../components/AppReviewed.vue";
 export default {
+  components: {
+    AppReviewed,
+  },
   data() {
     return {};
   },
@@ -75,5 +79,6 @@ export default {
         </div>
       </div>
     </div>
+    <app-reviewed></app-reviewed>
   </div>
 </template>
