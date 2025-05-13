@@ -9,6 +9,9 @@ export default {
       return this.$store.state.cart;
     },
   },
+  mounted(){
+    this.$store.dispatch("loadCartFromStorage")
+  },
   methods: {
     countMinus(product) {
       this.$store.commit("DECREASE_COUNT", product.id);

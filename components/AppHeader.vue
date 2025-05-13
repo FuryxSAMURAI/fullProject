@@ -39,10 +39,7 @@
 <script>
 export default {
   mounted() {
-    const savedLang = this.$cookies.get("i18n_redirected");
-    if (savedLang && savedLang !== this.$i18n.locale) {
-      this.$i18n.setLocale(savedLang);
-    }
+    this.$store.dispatch("loadCounter")
   },
   methods: {
     changeLanguage(event) {
@@ -53,7 +50,7 @@ export default {
   },
   computed: {
     getCartCount() {
-      return this.$store.state.cartCount;
+      return this.$store.getters.getCounter;
     },
     getFavoritesCount() {
       return this.$store.state.favoritesCount;
