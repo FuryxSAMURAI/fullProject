@@ -36,20 +36,12 @@
               {{ product.price }}$
             </div>
             <div class="container__main-reviewed-wrapper-block-price-footer">
-              <button
-                class="container__main-reviewed-wrapper-block-price-footer-addToFav"
-                @click="addFavorite(product)"
-                style="border: none; background-color: transparent;margin-right: 10px;"
-              >
-                <i class="fa-solid fa-heart fa-xl" style="color: #000"></i>
-              </button>
-              <button
-                class="container__main-reviewed-wrapper-block-price-footer-addToCart"
-                @click="addToCart(product)"
-                style="border: none; background-color: transparent"
-              >
-                <i class="fa-solid fa-cart-shopping fa-xl"></i>
-              </button>
+                <div class="container__main-reviewed-wrapper-block-price-footer-addToFav">
+                    <add-to-fav :product="product"></add-to-fav>
+                </div>
+                <div class="container__main-reviewed-wrapper-block-price-footer-addToCart">
+                    <add-to-cart :product="product"></add-to-cart>
+                </div>
             </div>
           </div>
         </div>
@@ -116,13 +108,22 @@
       &-cost {
         font-size: 12px;
       }
+      &-footer{
+          display: flex;
+      }
     }
   }
 }
 </style>
 
 <script>
+import AddToCart from "~/components/Buttons/AddToCart.vue";
+import AddToFav from "~/components/Buttons/AddToFav.vue";
 export default {
+  components: {
+    AddToCart,
+    AddToFav,
+  },
   data() {
     return {
       reviewedProducts: [],
@@ -191,12 +192,6 @@ export default {
     handleProductClick(product) {
       this.setToReviewed(product);
       this.showAboutProduct(product);
-    },
-    addToCart(product) {
-      this.$store.commit("addToCart", product);
-    },
-    addFavorite(product) {
-      this.$store.commit("addToFav", product);
     },
   },
   computed: {

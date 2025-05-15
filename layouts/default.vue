@@ -13,7 +13,7 @@ export default {
 <template>
   <div class="layout">
     <app-header />
-    
+
     <main class="main-content">
       <nuxt />
     </main>
@@ -22,7 +22,7 @@ export default {
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .layout {
   display: flex;
   flex-direction: column;

@@ -39,21 +39,22 @@
 <script>
 export default {
   mounted() {
-    this.$store.dispatch("loadCounter")
+    this.$store.dispatch("loadCartCounter")
+    this.$store.dispatch("loadFavCounter")
   },
   methods: {
     changeLanguage(event) {
       const lang = event.target.value;
       this.$i18n.setLocale(lang);
-      this.$cookies.set("i18n_redirected", lang);
+      this.$localStorage.set("i18n_redirected", lang);
     },
   },
   computed: {
     getCartCount() {
-      return this.$store.getters.getCounter;
+      return this.$store.getters.getCartCounter;
     },
     getFavoritesCount() {
-      return this.$store.state.favoritesCount;
+      return this.$store.getters.getFavCounter;
     },
   },
 };

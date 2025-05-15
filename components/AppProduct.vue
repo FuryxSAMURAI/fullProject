@@ -28,18 +28,8 @@
             {{ product.price }}$
           </div>
           <div class="container__main-product-block-price-footer">
-            <button
-              class="container__main-product-block-price-footer-addToFav"
-              @click.stop="addFavorite(product)"
-            >
-              <i class="fa-solid fa-heart fa-2xl" style="color: #000"></i>
-            </button>
-            <button
-              class="container__main-product-block-price-footer-addToCart"
-              @click.stop="addToCart(product)"
-            >
-              {{ $t("addToCart") }} <i class="fa-solid fa-cart-shopping"></i>
-            </button>
+            <add-to-fav :product="product"></add-to-fav>
+            <add-to-cart :product="product"></add-to-cart>
           </div>
         </div>
       </div>
@@ -59,12 +49,18 @@
 </template>
 
 <script>
+import AddToCart from "~/components/Buttons/AddToCart.vue"
+import AddToFav from '~/components/Buttons/AddToFav.vue';
 export default {
   props: {
     products: {
       type: Array,
       required: true,
     },
+  },
+  components:{
+    AddToCart,
+    AddToFav,
   },
   data() {
     return {
@@ -94,12 +90,6 @@ export default {
     },
     prevPage() {
       if (this.currentPage > 1) this.currentPage--;
-    },
-    addToCart(product) {
-      this.$store.dispatch("addToCart", product);
-    },
-    addFavorite(product) {
-      this.$store.commit("addToFav", product);
     },
     handleProductClick(product) {
       this.setToReviewed(product);
@@ -166,14 +156,6 @@ export default {
           border: none;
           background-color: transparent;
           cursor: pointer;
-        }
-        &-addToCart {
-          cursor: pointer;
-          font-size: 14px;
-          border: 1px solid #000;
-          padding: 10px;
-          border-radius: 5px;
-          background-color: transparent;
         }
       }
     }

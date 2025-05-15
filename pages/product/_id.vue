@@ -165,10 +165,10 @@ export default {
   },
   methods: {
     addToCart(product) {
-      this.$store.commit("addToCart", product);
+      this.$store.dispatch("addToCart", product);
     },
     addFavorite(product) {
-      this.$store.commit("addToFav", product);
+      this.$store.dispatch("addToFav", product);
     },
   },
 };
