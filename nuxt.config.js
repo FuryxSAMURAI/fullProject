@@ -33,9 +33,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-   plugins: [
-    { src: '~/plugins/localStorage.js', mode: 'client' }
-  ],
+  plugins: [{ src: "~/plugins/localStorage.js", mode: "client" }],
   /*
    ** Nuxt.js dev-modules
    */
@@ -47,30 +45,30 @@ export default {
   axios: {
     baseURL: "https://fakestoreapi.com/products",
   },
+
   i18n: {
     locales: [
       { code: "ua", iso: "uk-UA", file: "ua.json", name: "Українська" },
       { code: "en", iso: "en-US", file: "en.json", name: "English" },
     ],
     defaultLocale: "ua",
-    strategy: 'prefix_except_default',
+    strategy: "prefix_except_default",
     lazy: true,
     langDir: "lang/",
     vueI18n: {
       fallbackLocale: "ua",
     },
     detectBrowserLanguage: {
-      useCookie: true,
-      cookieKey: "i18n_redirected",
+      useCookie: false,
       alwaysRedirect: false,
-      fallbackLocale: "en",
     },
   },
-  target: 'static',
+
+  target: "static",
   /*
    ** Build configuration
    */
-   cookies: {
+  cookies: {
     parseJSON: true,
   },
   build: {

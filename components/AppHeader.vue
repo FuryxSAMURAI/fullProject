@@ -5,55 +5,42 @@
     </div>
     <nav class="container__header-nav">
       <ul class="container__header-nav-container-links">
-        <li>
-          <nuxt-link to="/">{{ $t("about") }}</nuxt-link>
-        </li>
-        <li>
-          <nuxt-link to="/">{{ $t("delivery") }}</nuxt-link>
-        </li>
-        <li>
-          <nuxt-link to="/">{{ $t("contacts") }}</nuxt-link>
-        </li>
-        <li>
-          <nuxt-link to="admin">ADMIN</nuxt-link>
-        </li>
+        <li><nuxt-link to="/about">{{ $t("about") }}</nuxt-link></li>
+        <li><nuxt-link to="/delivery">{{ $t("delivery") }}</nuxt-link></li>
+        <li><nuxt-link to="/contacts">{{ $t("contacts") }}</nuxt-link></li>
+        <li><nuxt-link to="/admin">ADMIN</nuxt-link></li>
       </ul>
     </nav>
-    <div>
-      <nuxt-link style="margin-right: 10px" to="/cart"
-        ><i class="fa-solid fa-cart-shopping fa-xl" style="color: #000"></i>
-        {{ getCartCount }}</nuxt-link
-      >
-      <nuxt-link style="margin-right: 30px" to="/favorites"
-        ><i class="fa-solid fa-heart fa-xl" style="color: #000"></i>
-        {{ getFavoritesCount }}</nuxt-link
-      >
-      <select :value="$i18n.locale" @change="changeLanguage($event)">
-        <option value="ua">🇺🇦 Українська</option>
-        <option value="en">🇬🇧 English</option>
-      </select>
+    <div style="display: flex;align-items: center;">
+      <nuxt-link to="/cart" style="margin-right: 10px;text-decoration: none;color: #000;">
+        <i class="fa-solid fa-cart-shopping fa-xl" style="color: #000"></i>
+        {{ getCartCount }}
+      </nuxt-link>
+      <nuxt-link to="/favorites" style="margin-right: 30px;text-decoration: none;color: #000;">
+        <i class="fa-solid fa-heart fa-xl" style="color: #000"></i>
+        {{ getFavoritesCount }}
+      </nuxt-link>
+      <AppLanguageSwitcher />
     </div>
   </header>
 </template>
 
 <script>
+import AppLanguageSwitcher from './AppLanguageSwitcher.vue';
 export default {
-  mounted() {
-    this.$store.dispatch("loadCounter")
+  components: {
+    AppLanguageSwitcher,
   },
-  methods: {
-    changeLanguage(event) {
-      const lang = event.target.value;
-      this.$i18n.setLocale(lang);
-      this.$cookies.set("i18n_redirected", lang);
-    },
+  mounted() {
+    this.$store.dispatch("loadCartFromStorage");
+    this.$store.dispatch("loadFavFromStorage");
   },
   computed: {
     getCartCount() {
-      return this.$store.getters.getCounter;
+      return this.$store.getters.getCartCounter;
     },
     getFavoritesCount() {
-      return this.$store.state.favoritesCount;
+      return this.$store.getters.getFavCounter;
     },
   },
 };
